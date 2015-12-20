@@ -14,13 +14,24 @@ front:
     - /Users/Shin/Dropbox/500.Programing/php-dockerized/www:/var/www
     - ./sites:/etc/nginx/conf.d
     - ./logs:/var/log/supervisor
+  environment:
+    MYSQL_USER: sunny
+    MYSQL_PASSWORD: sunny3sunny
+    MYSQL_DATABASE: mikan
+  container_name: front
 
 mysql:
   image: mysql
   ports:
     - "3306:3306"
+  volumes:
+    - ./initdb.d:/docker-entrypoint-initdb.d
   environment:
-    MYSQL_ROOT_PASSWORD: password
+    MYSQL_USER: sunny
+    MYSQL_PASSWORD: sunny3sunny
+    MYSQL_DATABASE: mikan
+    MYSQL_ROOT_PASSWORD: sunny3sunny
+  container_name: mysql
 
 # mongo:
 #   image: mongo
@@ -31,14 +42,19 @@ memcached:
   image: memcached
   ports:
     - "11211:11211"
+  container_name: memcached
+
 
 redis:
   image: redis
   ports:
     - "6379:6379"
+  container_name: redis
+
 
 elasticsearch:
   image: elasticsearch
   ports:
     - "9200:9200"
     - "9300:9300"
+  container_name: elastic

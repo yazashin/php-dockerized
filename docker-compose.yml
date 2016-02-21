@@ -7,11 +7,11 @@ front:
   links:
     - mysql:mysql
     # - mongo:mongo
-    - memcached:memcached
+    # - memcached:memcached
     - redis:redis
     - elasticsearch:elasticsearch
   volumes:
-    - /Users/Shin/Dropbox/500.Programing/php-dockerized/www:/var/www
+    - ./www:/var/www
     - ./sites:/etc/nginx/conf.d
     - ./logs:/var/log/supervisor
   environment:
@@ -38,11 +38,11 @@ mysql:
 #   ports:
 #     - "27017:27017"
 
-memcached:
-  image: memcached
-  ports:
-    - "11211:11211"
-  container_name: memcached
+# memcached:
+#  image: memcached
+#  ports:
+#    - "11211:11211"
+#  container_name: memcached
 
 
 redis:

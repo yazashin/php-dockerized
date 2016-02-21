@@ -1,12 +1,12 @@
 server {
   server_name default;
-  root        /var/www/app/public;
-  index       index.php;
+  root      /var/www/macaron/public;
+  index     index.php;
 
   client_max_body_size 100M;
   fastcgi_read_timeout 1800;
 
-  location / {
+  location /dashboard {
     try_files $uri $uri/ /index.php$is_args$args;
   }
 

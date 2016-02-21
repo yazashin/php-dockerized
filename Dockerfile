@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -my \
   supervisor \
   curl \
   wget \
+  vim \
+  git \
   php5-curl \
   php5-fpm \
   php5-gd \
@@ -25,6 +27,9 @@ RUN apt-get update && apt-get install -my \
   php5-sqlite \
   php5-xdebug \
   php-apc
+
+# install php-composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Ensure that PHP5 FPM is run as root.
 RUN sed -i "s/user = www-data/user = root/" /etc/php5/fpm/pool.d/www.conf

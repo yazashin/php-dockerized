@@ -64,5 +64,6 @@ $ composer install
 # License
 [このリポジトリをforkしています](https://github.com/kasperisager/php-dockerized)。
 当プログラムもMITライセンスを継承します。
+
 Copyright &copy; 2016 [Shinnosuke Yazawa](https://github.com/yazashin/php-dockerized).
 Licensed under the terms of the [MIT license](LICENSE.md).

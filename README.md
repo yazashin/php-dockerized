@@ -48,8 +48,10 @@ mysql     /entrypoint.sh mysqld            Up      0.0.0.0:3306->3306/tcp
 redis     /entrypoint.sh redis-server      Up      0.0.0.0:6379->6379/tcp             
 ```
 
-0. macaron本体をcloneしてきます
-ローカルの ./www と container上の
+0. macaron本体をcloneしてきます  
+ホストの ./www を container上の/var/www がマウントしています  
+(= ./www配下を編集するとcontainer上のファイルも更新されます)
+
 ```sh
 $ cd ./www
 $ git clone ~~~~~/macaron.git

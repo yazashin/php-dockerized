@@ -6,7 +6,7 @@ server {
   client_max_body_size 100M;
   fastcgi_read_timeout 1800;
 
-  location /dashboard {
+  location / {
     try_files $uri $uri/ /index.php$is_args$args;
   }
 

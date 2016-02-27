@@ -1,5 +1,6 @@
 front:
-  build: .
+#  build: .
+  image: yazashin/nginx
   ports:
     - "80:80"
     - "443:443"

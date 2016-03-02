@@ -1,6 +1,6 @@
 server {
   server_name default;
-  root      /var/www/macaron/public;
+  root      /var/www/app/public;
   index     index.php;
 
   client_max_body_size 100M;
@@ -10,35 +10,41 @@ server {
     try_files $uri $uri/ /index.php$is_args$args;
   }
 
-  location /status {
+  # location ~ ^/macaron((/)?(.+))?$ {
+  #   root /var/www/app/public;
+  #   try_files $1 /macaron/index.php?$query_string;
+  #
+  #   location ~ \.php$ {
+  #       include fastcgi_params;
+  #       #try_files                $uri = 404;
+  #       include                  fastcgi_params;
+  #       fastcgi_param            SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  #       fastcgi_param            PATHINFO        $fastcgi_path_info;
+  #       fastcgi_param            PATH_TRANSLATED $document_root$fastcgi_path_info;
+  #       fastcgi_split_path_info  ^(.+¥.php)(/.+)$;
+  #       fastcgi_pass  unix:/var/run/hhvm/hhvm.sock;
+  #       fastcgi_index index.php;
+  #   }
+  # }
+
+    location ~ \.php$ {
+          include fastcgi_params;
+          #try_files                $uri = 404;
+          include                  fastcgi_params;
+          fastcgi_param            SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          fastcgi_param            PATHINFO        $fastcgi_path_info;
+          fastcgi_param            PATH_TRANSLATED $document_root$fastcgi_path_info;
+          fastcgi_split_path_info  ^(.+¥.php)(/.+)$;
+          fastcgi_pass  unix:/var/run/hhvm/hhvm.sock;
+          fastcgi_index index.php;
+    }
+
+
+    location /status {
      access_log off;
-     allow 192.168.99.0/16;
-     deny all;
      include /etc/nginx/fastcgi_params;
      fastcgi_param SCRIPT_FILENAME /status;
      fastcgi_pass unix:/var/run/php5-fpm.sock;
-  }
+    }
 
-  location /ping {
-     access_log off;
-     allow all;
-     include fastcgi_params;
-     fastcgi_param SCRIPT_FILENAME /ping;
-     fastcgi_pass unix:/Var/run/php5-fpm.sock;
-  }
-
-  location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
-    expires       max;
-    log_not_found off;
-    access_log    off;
-  }
-
-  location ~ \.php$ {
-    try_files     $uri =404;
-    include       fastcgi_params;
-    fastcgi_index index.php;
-    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    # fastcgi_pass  unix:/var/run/php5-fpm.sock;
-    fastcgi_pass  unix:/var/run/hhvm/hhvm.sock;
-  }
 }
